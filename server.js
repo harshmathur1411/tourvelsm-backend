@@ -116,9 +116,11 @@ app.use("/api/about-us", aboutUsRoutes);
 // Handle favicon.ico request
 app.get('/favicon.ico', (req, res) => {
   const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
+  console.log('Favicon requested:', faviconPath); // Debugging the request
   if (fs.existsSync(faviconPath)) {
     res.sendFile(faviconPath); // Serve the favicon if it exists
   } else {
+    console.log('Favicon not found, returning 204');
     res.status(204).send(); // No content if favicon is missing
   }
 });
@@ -131,7 +133,6 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.redirect('https://tourvelsm123-7e9109f7a244.herokuapp.com/');
   });
-  
 } else {
   // In development, show API status
   app.get('/', (req, res) => {
@@ -142,7 +143,3 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);  
 });
-
-
-
-  
