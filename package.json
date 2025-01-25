@@ -9,7 +9,7 @@
       "heroku-postbuild": "cd ../tourvelsm-frontend && npm install && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "",  
   "license": "ISC",
   "engines": {
     "node": "18.x"
