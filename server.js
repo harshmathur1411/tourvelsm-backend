@@ -72,7 +72,7 @@ const authRoutes = require('routes/auth');
 const destRoutes = require('routes/destination');
 const aboutUsRoutes = require("routes/aboutusRoute");
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '.env') }); // Load .env file in backend folder
 const fs = require('fs');
 const PORT = process.env.PORT || 5000;
 
@@ -82,7 +82,7 @@ app.use(cors());
 // Serve static files from the "uploads" folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Serve favicon if it exists in the public folder
+// Serve favicon if it exists in the public folder (and handle missing favicon gracefully)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to parse JSON
@@ -113,7 +113,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/destination', destRoutes);
 app.use("/api/about-us", aboutUsRoutes);
 
-// Handle favicon.ico request
+// Handle favicon.ico request more gracefully to avoid crashes
 app.get('/favicon.ico', (req, res) => {
   const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
   console.log('Favicon requested:', faviconPath); // Debugging the request
@@ -133,6 +133,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.redirect('https://tourvelsm123-7e9109f7a244.herokuapp.com/');
   });
+  
 } else {
   // In development, show API status
   app.get('/', (req, res) => {
