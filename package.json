@@ -2,8 +2,7 @@
   "name": "tourvelsm-backend",
   "version": "1.0.0",
   "engines": {
-    "node": "18.x",
-    "npm": "^8.0.0"
+    "node": "17.4.0"
   },
   "description": "",
   "main": "server.js",
