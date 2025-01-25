@@ -73,17 +73,22 @@ const destRoutes = require('routes/destination');
 const aboutUsRoutes = require("routes/aboutusRoute");
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
-const fs = require('fs'); // Import fs for checking file existence
+const fs = require('fs');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
 
+// Serve static files from the "uploads" folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Serve favicon if it exists in the public folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to parse JSON
 app.use(express.json());
 
+// Session setup
 app.use(
     session({
       secret: process.env.SECRET_TOKEN_ACCESS || 'fallback-secret',
@@ -97,34 +102,47 @@ app.use(
     })
 );
 
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => console.log('Connected to MongoDB')).catch((err) => console.log(err));
 
-
+// Routes setup
 app.use('/api/auth', authRoutes);
 app.use('/api/destination', destRoutes);
 app.use("/api/about-us", aboutUsRoutes);
+
+// Handle favicon.ico request
+app.get('/favicon.ico', (req, res) => {
+  const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
+  if (fs.existsSync(faviconPath)) {
+    res.sendFile(faviconPath); // Serve the favicon if it exists
+  } else {
+    res.status(204).send(); // No content if favicon is missing
+  }
+});
 
 // Debugging NODE_ENV
 console.log(`Environment: ${process.env.NODE_ENV}`);
 
 if (process.env.NODE_ENV === 'production') {
-  // For production, we can simply send the frontend URL
+  // In production, redirect to frontend
   app.get('*', (req, res) => {
     res.redirect('https://tourvelsm123-7e9109f7a244.herokuapp.com/');
   });
+  
 } else {
+  // In development, show API status
   app.get('/', (req, res) => {
     res.send('API is running...');
   });
-  app.get('/favicon.ico', (req, res) => res.status(204)); // return no content if favicon is missing
 }
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);  
 });
+
 
 
   
