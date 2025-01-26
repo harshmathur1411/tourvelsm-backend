@@ -77,7 +77,11 @@ const fs = require('fs');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5000', 'https://tourvelsm123-7e9109f7a244.herokuapp.com'], // Add your frontend URLs
+  credentials: true,
+}));
+
 
 // Serve static files from the "uploads" folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
