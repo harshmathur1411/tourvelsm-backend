@@ -80,6 +80,8 @@ const app = express();
 app.use(cors({
   origin: ['http://localhost:5000', 'https://tourvelsm123-7e9109f7a244.herokuapp.com'], // Add your frontend URLs
   credentials: true,
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
 }));
 
 
