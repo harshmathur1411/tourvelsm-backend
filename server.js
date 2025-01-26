@@ -110,11 +110,14 @@ app.use(
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds for server selection
-    socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
-}).then(() => console.log('Connected to MongoDB')).catch((err) => console.log(err));
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds for server selection
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch((err) => console.log('MongoDB connection error:', err));
+
 
 // Routes setup
 app.use('/api/auth', authRoutes);
