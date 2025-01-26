@@ -14,12 +14,10 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 // Configure CORS for your frontend URL
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://tourvelsm-frontend.herokuapp.com'], // Add your frontend URLs
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'https://tourvelsm123-7e9109f7a244.herokuapp.com',  // Allow your frontend's URL
+  methods: 'GET,POST', // Allowed HTTP methods
+  allowedHeaders: 'Content-Type, Authorization'  // Allowed headers
 }));
-
 // Middleware to parse JSON
 app.use(express.json());
 
