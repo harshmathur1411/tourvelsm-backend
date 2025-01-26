@@ -68,9 +68,9 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
-const authRoutes = require('routes/auth');
-const destRoutes = require('routes/destination');
-const aboutUsRoutes = require("routes/aboutusRoute");
+const authRoutes = require('./routes/auth');
+const destRoutes = require('./routes/destination');
+const aboutUsRoutes = require("./routes/aboutusRoute");
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') }); // Load .env file in backend folder
 const fs = require('fs');
@@ -133,7 +133,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.redirect('https://tourvelsm123-7e9109f7a244.herokuapp.com/');
   });
-  
+
 } else {
   // In development, show API status
   app.get('/', (req, res) => {
