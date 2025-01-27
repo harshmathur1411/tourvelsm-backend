@@ -43,7 +43,7 @@ if (!fs.existsSync(uploadsPath)) {
   console.log("Uploads directory created.");
 }
 // Serve static files from the 'uploads' folder
-app.use("/uploads", express.static(uploadsPath));
+app.use("/uploads/images", express.static(uploadsPath));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
