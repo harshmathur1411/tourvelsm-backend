@@ -36,7 +36,7 @@ app.use(
 );
 // Upload Middleware
 
-const uploadsPath = path.join(__dirname, "uploads");
+const uploadsPath = path.join(__dirname, "uploads" , "images");
 
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
