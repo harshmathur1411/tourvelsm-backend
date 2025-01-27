@@ -34,6 +34,16 @@ app.use(
     },
   })
 );
+// Upload Middleware
+
+const uploadsPath = path.join(__dirname, "uploads");
+
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true });
+  console.log("Uploads directory created.");
+}
+// Serve static files from the 'uploads' folder
+app.use("/uploads", express.static(uploadsPath));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
