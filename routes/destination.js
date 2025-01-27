@@ -42,9 +42,11 @@ router.post("/destinations", async (req, res) => {
   });
 
 // Fetch all destinations
+const backendUrl = 'https://tourvelsm-backend-f9c12123307d.herokuapp.com';
 router.get("/destinations", async (req, res) => {
   try {
     const destinations = await Destination.find();
+    destinations.image = image.replace('http://localhost:5000', backendUrl);
     res.json(destinations);
   } catch (err) {
     res.status(500).json({ error: "Server error" });
@@ -58,6 +60,7 @@ router.get("/destinations/search", async (req, res) => {
     const destinations = await Destination.find({
       name: { $regex: name, $options: "i" },
     });
+    destinations.image = image.replace('http://localhost:5000', backendUrl);
     res.json(destinations);
   } catch (err) {
     res.status(500).json({ error: "Server error" });
@@ -67,7 +70,8 @@ router.get("/destinations/search", async (req, res) => {
 // Fetch destination by ID
 router.get("/destinations/:id", async (req, res) => {
   try {
-    const destination = await Destination.findById(req.params.id);
+    const destination = await Destination.findById(req.params.id)
+    destination.image = image.replace('http://localhost:5000', backendUrl);
     res.json(destination);
   } catch (err) {
     res.status(500).json({ error: "Server error" });
