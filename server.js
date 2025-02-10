@@ -6,6 +6,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const destRoutes = require('./routes/destination');
 const aboutUsRoutes = require("./routes/aboutusRoute");
+const enquiryRoutes = require("./routes/enquiryRoute");
 const path = require('path');
 require('dotenv').config();
 const fs = require('fs');
@@ -59,6 +60,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/auth', authRoutes);
 app.use('/api/destination', destRoutes);
 app.use("/api/about-us", aboutUsRoutes);
+app.use("/api/enquiries", enquiryRoutes);
 
 // Default route to check API status
 app.get('/', (req, res) => {
