@@ -5,7 +5,6 @@ const enquirySchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   message: { type: String, required: true },
-  placeId: { type: mongoose.Schema.Types.ObjectId, ref: "Place", required: true }, // Reference to a place
   createdAt: { type: Date, default: Date.now },
 });
 

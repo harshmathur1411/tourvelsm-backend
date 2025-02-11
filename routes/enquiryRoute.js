@@ -5,7 +5,7 @@ const Enquiry = require("../models/enquiry");
 // Create an enquiry
 router.post("/", async (req, res) => {
     try {
-      const { name, email, phone, message, placeId } = req.body;
+      const { name, email, phone, message } = req.body;
   
       // Validate request body
       if (!name || !email || !phone || !message || !placeId) {
