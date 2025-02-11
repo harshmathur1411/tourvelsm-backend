@@ -8,11 +8,11 @@ router.post("/", async (req, res) => {
       const { name, email, phone, message } = req.body;
   
       // Validate request body
-      if (!name || !email || !phone || !message || !placeId) {
+      if (!name || !email || !phone || !message) {
         return res.status(400).json({ error: "All fields are required" });
       }
   
-      const newEnquiry = new Enquiry({ name, email, phone, message, placeId });
+      const newEnquiry = new Enquiry({ name, email, phone, message });
       await newEnquiry.save();
       res.status(201).json({ message: "Enquiry submitted successfully!" });
     } catch (error) {
