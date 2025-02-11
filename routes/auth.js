@@ -76,30 +76,25 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Password is incorrect" });
     }
 
-    // Exclude the password from the response
     const { password, ...others } = user.toObject();
 
-    // Generate the JWT token
     const accessToken = jwt.sign(
       { id: user._id, email: user.email },
       process.env.SECRET_TOKEN_ACCESS,
       { expiresIn: "1h" }
     );
 
-    // Respond with user data and token
     res.status(200).json({
       message: `Login successful! Welcome, ${user.username}.`,
       user: others,
-      accessToken: accessToken,
+      accessToken,
     });
-    req.session.userId = user._id;
-    console.log( req.session.userId ,'user with id');
+
   } catch (error) {
     console.error("Error during sign-in:", error);
     res.status(500).json({ message: "Sign-in failed", error: error.message });
   }
 });
-
 // Get user details (protected route)
 router.get('/', async (req, res) => {
   req.session.isAuth = true;
